@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3004/api/';
+const API_URL = 'https://cron-task-sheduler.onrender.com/api/';
 
 export const createTask = async (task) => {
   try {
