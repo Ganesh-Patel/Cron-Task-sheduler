@@ -40,6 +40,28 @@ function Table() {
     }
   }
 
+  async function activate(id) {
+    try {
+      await fetch(`http://localhost:3000/tasks/${id}`, {
+        method: 'DELETE',
+      });
+      fetchData();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function deactivate(id) {
+    try {
+      await fetch(`http://localhost:3000/tasks/${id}`, {
+        method: 'PUT',
+      });
+      fetchData();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -49,7 +71,6 @@ function Table() {
       <table className="table">
         <thead>
           <tr>
-            <th><input type="checkbox" /></th>
             <th>Id</th>
             <th>Name</th>
             <th>Schedule</th>
@@ -69,15 +90,14 @@ function Table() {
           {data.length > 0 ? (
             data.map((item) => (
               <tr key={item.id}>
-                <td><input type="checkbox" /></td>
-                <td>{item.id}</td>
+                <td>{item.taskId}</td>
                 <td>{item.name}</td>
                 <td>{item.schedule}</td>
                 <td>{item.successCount}</td>
                 <td>{item.errorCount}</td>
                 <td>{item.lastSuccess}</td>
                 <td>{item.lastError}</td>
-                <td>{item.disabled ? 'Yes' : 'No'}</td>
+                <td>{item.status ? 'active' : 'stopped'}</td>
                 <td>{item.retries}</td>
                 <td>{item.status? <TiTick /> : <ImCross />}</td>
                 <td>{item.next}</td>
@@ -85,6 +105,8 @@ function Table() {
                   <select name="" id="">
                     <option value="" onClick={editData}>edit</option>
                     <option value="" onClick={deleteData}>delete</option>
+                    <option value="" onClick={activate}>Activate</option>
+                    <option value="" onClick={deactivate}>Deactivate</option>
                   </select>
                 </td>
               </tr>

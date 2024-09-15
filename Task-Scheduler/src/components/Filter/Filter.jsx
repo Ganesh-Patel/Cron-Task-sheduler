@@ -30,7 +30,7 @@ function Filter() {
       name:taskData.name,
       schedule:cronExpression,
       email:taskData.email,
-      message:"This is Auto generated message",
+      message:"This is a sheduled task for the email Sender",
       expiration:"" 
       }
     
